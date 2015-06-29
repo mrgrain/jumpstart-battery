@@ -1,0 +1,17 @@
+{
+  "name": "mrgrain/jumpstart-trampoline",
+  "description": "Use a Trampoline to jumpstart even higher! It's a collection of helper classes for easier WordPress plugin development.",
+  "minimum-stability": "dev",
+  "license": "GPL-3.0+",
+  "authors": [
+    {
+      "name": "Moritz Kornher",
+      "email": "mail@moritzkornher.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Jumpstart\\Trampoline\\": "src/"
+    }
+  }
+}
