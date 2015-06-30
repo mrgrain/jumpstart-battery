@@ -1,5 +1,5 @@
 <?php
-namespace Jumpstart\Trampoline;
+namespace Jumpstart\Battery;
 
 /**
  * Register all actions and filters for the plugin.
@@ -8,82 +8,82 @@ namespace Jumpstart\Trampoline;
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @since      1.0.0
- * @package    Jumpstart\Trampoline
- * @author     Moritz Kornher <mail@moritzkornher.de>
+ * @since       1.0.0
+ * @package     Jumpstart\Battery
+ * @author      Moritz Kornher <mail@moritzkornher.de>
  */
 class Loader
 {
     /**
      * The slug of this plugin.
      *
-     * @since    1.0.0
-     * @access   protected
-     * @var      string $slug The slug of this plugin.
+     * @since   1.0.0
+     * @access  protected
+     * @var     string $slug The slug of this plugin.
      */
     protected $slug;
 
     /**
      * The version of this plugin.
      *
-     * @since    1.0.0
-     * @access   protected
-     * @var      string $version The current version of this plugin.
+     * @since   1.0.0
+     * @access  protected
+     * @var     string $version The current version of this plugin.
      */
     protected $version;
 
     /**
      * The base path of this plugin.
      *
-     * @since    1.0.0
-     * @access   protected
-     * @var      string $path The base path of this plugin.
+     * @since   1.0.0
+     * @access  protected
+     * @var     string $path The base path of this plugin.
      */
     protected $path;
 
     /**
      * The array of actions registered with WordPress.
      *
-     * @since    1.0.0
-     * @access   protected
-     * @var      array $actions The actions registered with WordPress to fire when the plugin loads.
+     * @since   1.0.0
+     * @access  protected
+     * @var     array $actions The actions registered with WordPress to fire when the plugin loads.
      */
     protected $actions;
 
     /**
      * The array of filters registered with WordPress.
      *
-     * @since    1.0.0
-     * @access   protected
-     * @var      array $filters The filters registered with WordPress to fire when the plugin loads.
+     * @since   1.0.0
+     * @access  protected
+     * @var     array $filters The filters registered with WordPress to fire when the plugin loads.
      */
     protected $filters;
 
     /**
      * The array of styles registered with WordPress.
      *
-     * @since    1.0.0
-     * @access   protected
-     * @var      array $styles The styles registered with WordPress to load when the plugin loads.
+     * @since   1.0.0
+     * @access  protected
+     * @var     array $styles The styles registered with WordPress to load when the plugin loads.
      */
     protected $styles;
 
     /**
      * The array of scripts registered with WordPress.
      *
-     * @since    1.0.0
-     * @access   protected
-     * @var      array $scripts The scripts registered with WordPress to load when the plugin loads.
+     * @since   1.0.0
+     * @access  protected
+     * @var     array $scripts The scripts registered with WordPress to load when the plugin loads.
      */
     protected $scripts;
 
     /**
      * Initialize the collections used to maintain the actions and filters.
      *
-     * @since    1.0.0
-     * @param $slug
-     * @param $version
-     * @param $path
+     * @since   1.0.0
+     * @param   $slug
+     * @param   $version
+     * @param   $path
      */
     public function __construct($slug, $version, $path)
     {
@@ -168,11 +168,11 @@ class Loader
     /**
      * Add a new filter to the collection to be registered with WordPress.
      *
-     * @since 1.0.0
-     * @param bool|string $src Path to the script from the root directory of the plugin.
-     * @param array $deps An array of registered handles this script depends on. Default empty array.
-     * @param string $type Optional. Include in wp, admin or both.
-     * @param bool $in_footer Optional. Whether to enqueue the script before or before . Default 'false'. Accepts 'false' or 'true'.
+     * @since   1.0.0
+     * @param   bool|string $src Path to the script from the root directory of the plugin.
+     * @param   array $deps An array of registered handles this script depends on. Default empty array.
+     * @param   string $type Optional. Include in wp, admin or both.
+     * @param   bool $in_footer Optional. Whether to enqueue the script before or before . Default 'false'. Accepts 'false' or 'true'.
      */
     public function script($src = false, $deps = array(), $type = 'both', $in_footer = false)
     {
@@ -185,12 +185,12 @@ class Loader
      *
      * @since   1.0.0
      * @access  private
-     * @param array $resources The collection of resources that is being registered (that is, styles or scripts).
-     * @param bool|string $src Path to the resource from the root directory of the plugin.
-     * @param array $deps An array of registered handles this resource depends on. Default empty array.
-     * @param string $type Optional. Include in wp, admin or both.
-     * @param bool $cond
-     * @return array The collection of styles and scripts registered with WordPress.
+     * @param   array $resources The collection of resources that is being registered (that is, styles or scripts).
+     * @param   bool|string $src Path to the resource from the root directory of the plugin.
+     * @param   array $deps An array of registered handles this resource depends on. Default empty array.
+     * @param   string $type Optional. Include in wp, admin or both.
+     * @param   bool $cond
+     * @return  array The collection of styles and scripts registered with WordPress.
      */
     private function resource($resources, $src, $deps, $type, $cond)
     {
@@ -208,7 +208,7 @@ class Loader
     /**
      * Register the filters and actions with WordPress.
      *
-     * @since    1.0.0
+     * @since   1.0.0
      */
     public function run()
     {
@@ -226,13 +226,14 @@ class Loader
     }
 
     /**
-     * Create a callable to enqueue resources
+     * Create a callable to enqueue resources.
      *
-     * @since 1.0.0
-     * @param $type
-     * @return callable
+     * @since   1.0.0
+     * @access  protected
+     * @param   $type
+     * @return  callable
      */
-    public function enqueue($type)
+    protected function enqueue($type)
     {
         $filter = function ($val) use ($type) {
             return in_array($val['type'], array($type, 'both'));

@@ -1,6 +1,6 @@
 {
-  "name": "mrgrain/jumpstart-trampoline",
-  "description": "Use a Trampoline to jumpstart even higher! It's a collection of helper classes for easier WordPress plugin development.",
+  "name": "mrgrain/jumpstart-battery",
+  "description": "The battery to Jumpstart your WordPress plugin. It's a collection of helper classes for faster development.",
   "minimum-stability": "stable",
   "license": "GPL-3.0+",
   "authors": [
@@ -11,7 +11,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Jumpstart\\Trampoline\\": "src/"
+      "Jumpstart\\Battery\\": "src/"
     }
   }
 }
