@@ -79,7 +79,7 @@ abstract class Plugin extends Component
     {
         $this->basename = plugin_basename($filename);
         $this->path = dirname($filename);
-        $this->loader = new Loader($this->getSlug(), $this->getVersion(), $this->getPath());
+        $this->loader = new Loader($this->getSlug(), $this->getVersion(), $this->getBasename());
         parent::__construct();
     }
 

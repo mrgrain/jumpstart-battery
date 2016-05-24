@@ -33,13 +33,13 @@ class Loader
     protected $version;
 
     /**
-     * The base path of this plugin.
+     * The basename of this plugin.
      *
      * @since   1.0.0
      * @access  protected
-     * @var     string $path The base path of this plugin.
+     * @var     string $path The basename of this plugin.
      */
-    protected $path;
+    protected $basename;
 
     /**
      * The array of actions registered with WordPress.
@@ -85,11 +85,11 @@ class Loader
      * @param   $version
      * @param   $path
      */
-    public function __construct($slug, $version, $path)
+    public function __construct($slug, $version, $basename)
     {
         $this->slug = $slug;
         $this->version = $version;
-        $this->path = $path;
+        $this->basename = $basename;
 
         $this->actions = array();
         $this->filters = array();
@@ -155,28 +155,28 @@ class Loader
      * Add a new action to the collection to be registered with WordPress.
      *
      * @since 1.0.0
-     * @param bool|string $src Path to the stylesheet from the root directory of the plugin.
+     * @param bool|string $src Path to the stylesheet from the css directory of the plugin.
      * @param array $deps An array of registered style handles this stylesheet depends on. Default empty array.
      * @param string $type Optional. Include in wp, admin or both.
      * @param string $media Optional. The media for which this stylesheet has been defined. Default 'all'. Accepts 'all', 'aural', 'braille', 'handheld', 'projection', 'print', 'screen', 'tty', or 'tv'.
      */
     public function style($src = false, $deps = array(), $type = 'both', $media = 'all')
     {
-        $this->styles = $this->resource($this->styles, $src, $deps, $type, $media);
+        $this->styles = $this->resource($this->styles, 'assets/css/' . $src, $deps, $type, $media);
     }
 
     /**
      * Add a new filter to the collection to be registered with WordPress.
      *
      * @since   1.0.0
-     * @param   bool|string $src Path to the script from the root directory of the plugin.
+     * @param   bool|string $src Path to the script from the assets directory of the plugin.
      * @param   array $deps An array of registered handles this script depends on. Default empty array.
      * @param   string $type Optional. Include in wp, admin or both.
      * @param   bool $in_footer Optional. Whether to enqueue the script before or before . Default 'false'. Accepts 'false' or 'true'.
      */
     public function script($src = false, $deps = array(), $type = 'both', $in_footer = false)
     {
-        $this->scripts = $this->resource($this->scripts, $src, $deps, $type, $in_footer);
+        $this->scripts = $this->resource($this->scripts, 'assets/js/' . $src, $deps, $type, $in_footer);
     }
 
     /**
@@ -196,7 +196,7 @@ class Loader
     {
         $resources[] = array(
             'handle' => $this->slug . '_' . $src,
-            'src' => plugins_url('assets/css/' . $src, $this->path),
+            'src' => plugins_url($src, $this->basename),
             'deps' => $deps,
             'type' => $type,
             'cond' => $cond
