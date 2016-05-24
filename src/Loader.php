@@ -83,7 +83,7 @@ class Loader
      * @since   1.0.0
      * @param   $slug
      * @param   $version
-     * @param   $path
+     * @param   $basename
      */
     public function __construct($slug, $version, $basename)
     {
